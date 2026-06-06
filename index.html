@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#111111">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="description" content="City Grill Bad Bramstedt – Döner, Pizza, Burger & mehr. Kirchenbleeck 3, 24576 Bad Bramstedt.">
+<title>City Grill Bad Bramstedt</title>
+<style>
+  /* ── LOCAL FONT FALLBACKS (kein externer Google-Fonts-Aufruf) ── */
+  @import url('data:text/css,');
+
+  /* ── CSS VARIABLES ── */
+  :root {
+    --orange:    #c0392b;
+    --orange-dk: #96281b;
+    --gold:      #e74c3c;
+    --anthrazit: #111111;
+    --anthrazit-lt: #1e1e1e;
+    --bg:        #f5f5f5;
+    --white:     #ffffff;
+    --grey:      #eeeeee;
+    --text:      #1a1a1a;
+    --text-lt:   #555555;
+    --shadow:    0 4px 20px rgba(0,0,0,0.10);
+    --shadow-hover: 0 8px 32px rgba(192,57,43,0.22);
+    --radius:    14px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y proximity;
+    overflow-y: scroll;
+    height: 100%;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    height: 100%;
+  }
+
+  /* ── FIXED NAV ── */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--anthrazit);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    height: 56px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  }
+  .nav-brand {
+    font-family: Georgia, 'Times New Roman', serif;
+    color: #e74c3c;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  /* Hamburger button */
+  .hamburger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    justify-content: center;
+  }
+  .hamburger span {
+    display: block;
+    width: 26px;
+    height: 2.5px;
+    background: white;
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+  /* Mobile menu panel */
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: min(280px, 80vw);
+    height: 100%;
+    background: #0f0f0f;
+    z-index: 200;
+    padding: 72px 0 40px;
+    transition: right 0.32s cubic-bezier(0.4,0,0.2,1);
+    box-shadow: -4px 0 30px rgba(0,0,0,0.5);
+  }
+  .mobile-menu.open { right: 0; }
+  .mobile-menu ul { list-style: none; }
+  .mobile-menu ul li a {
+    display: block;
+    padding: 18px 32px;
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: background 0.2s, color 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .mobile-menu ul li a:hover { background: rgba(192,57,43,0.15); color: var(--orange); }
+  .mobile-menu-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    background: rgba(255,255,255,0.08);
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  .mobile-menu-close:hover { background: var(--orange); }
+
+  /* Backdrop */
+  .mobile-menu-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 199;
+    backdrop-filter: blur(2px);
+  }
+  .mobile-menu-backdrop.open { display: block; }
+
+  /* Old nav-links hidden — replaced by hamburger */
+  .nav-links { display: none; }
+
+
+  /* ── HERO ── */
+  #hero {
+    position: relative;
+    min-height: 100svh;
+    scroll-snap-align: start;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(160deg, #0a0a0a 0%, #1a0000 50%, #2a0000 100%);
+    padding: 80px 24px 60px;
+  }
+  .hero-content {
+    max-width: 680px;
+    animation: fadeUp 0.9s ease both;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: var(--orange);
+    color: var(--white);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 5px 16px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+  }
+  .hero-content h1 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(2.4rem, 7vw, 4.2rem);
+    color: var(--white);
+    text-shadow: 0 3px 18px rgba(0,0,0,0.55);
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .hero-content h1 span { color: #e74c3c; }
+  .hero-sub {
+    color: rgba(255,255,255,0.88);
+    font-size: 1.05rem;
+    margin-bottom: 28px;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+  }
+  .hero-address {
+    color: rgba(255,255,255,0.80);
+    font-size: 0.92rem;
+    margin-bottom: 32px;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.35);
+  }
+
+  /* Hours box */
+  .hours-box {
+    display: inline-block;
+    background: rgba(255,255,255,0.13);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.22);
+    border-radius: var(--radius);
+    padding: 18px 30px;
+    margin-bottom: 36px;
+    text-align: left;
+  }
+  .hours-box h3 {
+    color: #e74c3c;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .hours-row {
+    display: flex;
+    gap: 14px;
+    color: rgba(255,255,255,0.92);
+    font-size: 0.90rem;
+    margin-bottom: 5px;
+  }
+  .hours-row span:first-child { font-weight: 600; min-width: 200px; }
+  .hours-row.closed span:last-child { color: #ff4444; font-weight: 700; }
+
+  /* CTA button */
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--orange);
+    color: var(--white);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 16px 34px;
+    border-radius: 50px;
+    box-shadow: 0 6px 28px rgba(192,57,43,0.55);
+    transition: background 0.22s, transform 0.18s, box-shadow 0.22s;
+    letter-spacing: 0.01em;
+  }
+  .cta-btn:hover {
+    background: var(--orange-dk);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 36px rgba(192,57,43,0.70);
+  }
+
+  /* ── GOOGLE REVIEW SECTION ── */
+  #bewertung {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a0000 100%);
+    min-height: 100svh;
+    scroll-snap-align: start;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
+    text-align: center;
+  }
+  .review-inner {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .stars {
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+    animation: pulse 2.5s ease-in-out infinite;
+  }
+  #bewertung h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    color: var(--white);
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    margin-bottom: 10px;
+  }
+  #bewertung p {
+    color: rgba(255,255,255,0.75);
+    font-size: 0.98rem;
+    margin-bottom: 26px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .google-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--white);
+    color: var(--anthrazit);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 14px 32px;
+    border-radius: 50px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    transition: transform 0.18s, box-shadow 0.2s;
+  }
+  .google-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+  }
+  .google-g {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+  }
+
+  /* ── MENU SECTION ── */
+  #speisekarte {
+    scroll-snap-align: start;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 64px 24px 80px;
+  }
+  .section-label {
+    text-align: center;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    color: #111111;
+    margin-bottom: 48px;
+  }
+
+  /* Category grid */
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 28px;
+  }
+
+  .menu-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    transition: box-shadow 0.22s, transform 0.18s;
+  }
+  .menu-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-4px);
+  }
+  .card-header {
+    background: var(--anthrazit);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-header .cat-emoji { font-size: 1.3rem; }
+  .card-header h3 {
+    font-family: Georgia, 'Times New Roman', serif;
+    color: var(--white);
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .card-body { padding: 6px 20px 16px; }
+
+  .menu-item {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    padding: 9px 0;
+    border-bottom: 1px dashed #e0e0e0;
+  }
+  .menu-item:last-child { border-bottom: none; }
+  .item-name {
+    flex: 1;
+    font-weight: 600;
+    font-size: 0.88rem;
+    color: var(--anthrazit);
+    line-height: 1.35;
+  }
+  .item-desc {
+    font-size: 0.76rem;
+    color: var(--text-lt);
+    font-weight: 400;
+    display: block;
+    margin-top: 2px;
+  }
+  .item-price {
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--orange);
+    white-space: nowrap;
+  }
+
+  /* ── CONTACT STRIP ── */
+  #kontakt {
+    background: var(--anthrazit);
+    padding: 56px 24px;
+    text-align: center;
+    color: var(--white);
+  }
+  #kontakt h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  #kontakt p { color: rgba(255,255,255,0.72); margin-bottom: 28px; font-size: 0.95rem; }
+  .contact-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 18px;
+    margin-bottom: 32px;
+  }
+  .contact-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    background: rgba(255,255,255,0.09);
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 50px;
+    padding: 12px 24px;
+    color: var(--white);
+    font-size: 0.92rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .contact-pill:hover { background: var(--orange); border-color: var(--orange); }
+  .contact-pill .ico { font-size: 1.1rem; }
+
+  .hours-kontakt {
+    display: inline-block;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: var(--radius);
+    padding: 20px 32px;
+    text-align: left;
+  }
+  .hours-kontakt h4 {
+    color: var(--gold);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .hours-row-k {
+    display: flex;
+    gap: 16px;
+    color: rgba(255,255,255,0.85);
+    font-size: 0.88rem;
+    margin-bottom: 6px;
+  }
+  .hours-row-k span:first-child { font-weight: 600; min-width: 200px; }
+  .hours-row-k.closed span:last-child { color: #ff4444; font-weight: 700; }
+
+  /* ── HERO MAP ── */
+  .hero-map-wrapper {
+    margin: 28px auto 18px;
+    width: 100%;
+    max-width: 560px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 2px solid rgba(255,255,255,0.22);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+  }
+  .hero-map-wrapper iframe {
+    display: block;
+    width: 100%;
+    height: 260px;
+    border: none;
+  }
+  .cta-btn-secondary {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(6px);
+    border: 2px solid rgba(255,255,255,0.35);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+    margin-top: 12px;
+  }
+  .cta-btn-secondary:hover {
+    background: rgba(255,255,255,0.28);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+  }
+
+  /* ── MAP ── */
+  .map-wrapper {
+    margin-top: 40px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 6px 30px rgba(0,0,0,0.35);
+    max-width: 860px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 3px solid rgba(255,255,255,0.12);
+  }
+  .map-wrapper iframe {
+    display: block;
+    width: 100%;
+    height: 340px;
+    border: none;
+  }
+  .map-link-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 18px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #1a252f;
+    padding: 24px;
+    text-align: center;
+    scroll-snap-align: end;
+  }
+  footer p {
+    color: rgba(255,255,255,0.45);
+    font-size: 0.82rem;
+    margin-bottom: 8px;
+  }
+  .footer-links { display: flex; justify-content: center; gap: 20px; }
+  .footer-links a {
+    color: rgba(255,255,255,0.40);
+    text-decoration: none;
+    font-size: 0.80rem;
+    transition: color 0.18s;
+  }
+  .footer-links a:hover { color: var(--orange); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.07); }
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE / MOBILE-FIRST ── */
+
+  /* Nav: größere Tippflächen auf Mobile */
+  @media (max-width: 600px) {
+    nav {
+      padding: 0 10px;
+      height: 52px;
+    }
+    .nav-brand { font-size: 1rem; }
+    .nav-links { gap: 4px; }
+    .nav-links a {
+      font-size: 0.72rem;
+      padding: 6px 9px;
+    }
+
+    /* Hero: volle Höhe, alles gestapelt */
+    #hero {
+      min-height: 100svh;
+      padding: 70px 18px 48px;
+    }
+    .hero-badge { font-size: 0.68rem; }
+    .hero-content h1 { font-size: 2.6rem; }
+    .hero-sub { font-size: 0.95rem; margin-bottom: 20px; }
+    .hero-address { font-size: 0.88rem; margin-bottom: 24px; }
+
+    /* Öffnungszeiten-Box: volle Breite */
+    .hours-box {
+      display: block;
+      width: 100%;
+      padding: 14px 16px;
+      margin-bottom: 24px;
+    }
+    .hours-row {
+      flex-direction: column;
+      gap: 1px;
+      margin-bottom: 8px;
+    }
+    .hours-row span:first-child { min-width: unset; }
+
+    /* CTA Buttons: volle Breite, gut tippbar */
+    .cta-btn {
+      width: 100%;
+      justify-content: center;
+      font-size: 1.05rem;
+      padding: 18px 20px;
+      margin-bottom: 12px;
+    }
+
+    /* Karte im Hero */
+    .hero-map-wrapper { margin-top: 16px; margin-bottom: 16px; }
+    .hero-map-wrapper iframe { height: 220px; }
+
+    /* Bewertungs- & Social-Sektionen */
+    #bewertung, #socialmedia {
+      padding: 40px 18px;
+    }
+    #bewertung h2, #socialmedia h2 { font-size: 1.4rem; }
+    #bewertung p, #socialmedia p  { font-size: 0.90rem; }
+
+    /* Google-Btn & Social-Buttons: volle Breite */
+    .google-btn {
+      width: 100%;
+      justify-content: center;
+      padding: 16px 20px;
+      font-size: 1rem;
+    }
+    .social-btn-row { flex-direction: column; }
+    .social-btn-row .google-btn { width: 100%; }
+
+    /* Speisekarte */
+    #speisekarte { padding: 40px 14px 60px; }
+    .section-title { font-size: 1.6rem; margin-bottom: 28px; }
+    .menu-grid { grid-template-columns: 1fr; gap: 16px; }
+    .card-header { padding: 12px 16px; }
+    .card-body { padding: 4px 16px 12px; }
+    .item-name { font-size: 0.86rem; }
+    .item-desc { font-size: 0.74rem; }
+    .item-price { font-size: 0.90rem; }
+
+    /* Öffnungszeiten Kontakt */
+    .hours-row-k { flex-direction: column; gap: 1px; margin-bottom: 8px; }
+    .hours-row-k span:first-child { min-width: unset; }
+
+    /* Modals */
+    .modal-box { padding: 24px 16px; max-height: 90vh; }
+    .modal-box h2 { font-size: 1.3rem; }
+    .modal-box p, .modal-box h3 { font-size: 0.85rem; }
+
+    /* Footer */
+    footer { padding: 28px 16px; }
+    .social-links { gap: 18px; margin-bottom: 16px; }
+    .social-btn { width: 48px; height: 48px; }
+  }
+  /* ── SOCIAL MEDIA SECTION ── */
+  #socialmedia {
+    background: linear-gradient(135deg, #1a0000 0%, #0a0a0a 100%);
+    min-height: 100svh;
+    scroll-snap-align: start;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
+    text-align: center;
+    color: white;
+  }
+  #socialmedia h2 { color: white; }
+  #socialmedia p  { color: rgba(255,255,255,0.75); margin-bottom: 28px; }
+  .social-btn-row {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  /* ── SOCIAL ICONS (Footer) ── */
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .social-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: transform 0.18s, box-shadow 0.18s;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  }
+  .social-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.4); }
+  .social-btn svg { width: 22px; height: 22px; }
+  .social-btn.instagram { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+  .social-btn.facebook  { background: #1877F2; }
+
+  /* Hero social */
+  .hero-social {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .social-label {
+    color: rgba(255,255,255,0.65);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .hero-social-btns {
+    display: flex;
+    gap: 12px;
+  }
+  .hero-social-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,255,255,0.13);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 50px;
+    padding: 9px 18px;
+    color: white;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.18s;
+  }
+  .hero-social-btn:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); }
+  .hero-social-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+
+  /* ── MODALS ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.active {
+    display: flex;
+  }
+  .modal-box {
+    background: var(--white);
+    border-radius: var(--radius);
+    max-width: 640px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    padding: 40px 36px;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    animation: fadeUp 0.25s ease both;
+  }
+  .modal-box h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.7rem;
+    color: var(--anthrazit);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--orange);
+  }
+  .modal-box h3 {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin: 20px 0 6px;
+  }
+  .modal-box p {
+    font-size: 0.92rem;
+    color: var(--text);
+    line-height: 1.7;
+    margin-bottom: 4px;
+  }
+  .modal-box a {
+    color: var(--orange);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .modal-box a:hover { text-decoration: underline; }
+  .modal-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    background: var(--grey);
+    border: none;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.18s;
+  }
+  .modal-close:hover { background: var(--orange); color: white; }
+
+  @media (max-width: 600px) {
+    .modal-box { padding: 28px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─────────────────── NAV ─────────────────── -->
+<nav>
+  <a href="#" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;" class="nav-brand">City Grill</a>
+  <button class="hamburger" id="hamburger" aria-label="Menü öffnen" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- MOBILE MENU OVERLAY -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" onclick="toggleMenu()" aria-label="Menü schließen">✕</button>
+  <ul>
+    <li><a href="#hero" onclick="toggleMenu()">📍 Kontakt</a></li>
+    <li><a href="#bewertung" onclick="toggleMenu()">⭐ Bewertung</a></li>
+    <li><a href="#socialmedia" onclick="toggleMenu()">📱 Social Media</a></li>
+    <li><a href="#speisekarte" onclick="toggleMenu()">🍽️ Speisekarte</a></li>
+  </ul>
+</div>
+<div class="mobile-menu-backdrop" id="menuBackdrop" onclick="toggleMenu()"></div>
+
+<!-- ─────────────────── HERO ─────────────────── -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Herzlich Willkommen</div>
+    <h1>City Grill<br><span>Bad Bramstedt</span></h1>
+    <p class="hero-sub">Döner · Pizza · Burger · Grill · Salate</p>
+    <p class="hero-address">📍 Kirchenbleeck 3, 24576 Bad Bramstedt</p>
+
+    <div class="hours-box">
+      <h3>🕐 Öffnungszeiten</h3>
+      <div class="hours-row">
+        <span>Mo – Di</span>
+        <span>11:00 – 22:00 Uhr</span>
+      </div>
+      <div class="hours-row closed">
+        <span>Mittwoch</span>
+        <span>Ruhetag</span>
+      </div>
+      <div class="hours-row">
+        <span>Do – Sa</span>
+        <span>11:00 – 22:00 Uhr</span>
+      </div>
+      <div class="hours-row">
+        <span>Sonn- &amp; Feiertage</span>
+        <span>12:00 – 21:00 Uhr</span>
+      </div>
+    </div>
+
+    <br>
+    <a href="tel:041928190610" class="cta-btn">
+      📞 Jetzt anrufen &amp; vorbestellen
+    </a>
+
+    <div class="hero-map-wrapper">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2362.847831609358!2d9.878776715853882!3d53.91966454566836!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b23372de011263%3A0x3f5192c529bf4c7b!2sCity%20Grill%20GbR!5e0!3m2!1sde!2sde!4v1718000000000!5m2!1sde!2sde"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="City Grill Bad Bramstedt auf Google Maps">
+      </iframe>
+    </div>
+    <a href="https://www.google.com/maps/dir/?api=1&destination=City+Grill+GbR&destination_place_id=0x47b23372de011263:0x3f5192c529bf4c7b" target="_blank" rel="noopener" class="cta-btn cta-btn-secondary">
+      🗺️ Route berechnen
+    </a>
+  </div>
+</section>
+
+<!-- ─────────────────── GOOGLE REVIEW ─────────────────── -->
+<section id="bewertung">
+  <div class="review-inner reveal">
+    <div class="stars">⭐⭐⭐⭐⭐</div>
+    <h2>Ihre Meinung zählt!</h2>
+    <p>Zufrieden mit unserem Essen? Bewerten Sie uns gerne auf Google – das hilft uns sehr und freut das ganze Team!</p>
+    <a href="https://g.page/r/CXtMvynFklE_EBM/review" target="_blank" rel="noopener" class="google-btn">
+      <!-- Google G SVG Icon -->
+      <svg class="google-g" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+      </svg>
+      Jetzt auf Google bewerten
+    </a>
+  </div>
+</section>
+
+<!-- ─────────────────── SOCIAL MEDIA ─────────────────── -->
+<section id="socialmedia">
+  <div class="review-inner reveal">
+    <div class="stars" style="color:white;opacity:0.9">📱💬📸</div>
+    <h2>Folge uns auf Social Media</h2>
+    <p>Aktionen, Neuigkeiten und Einblicke hinter die Kulissen – direkt in deinem Feed.</p>
+    <div class="social-btn-row">
+      <a href="https://www.instagram.com/city.grill.badbramstedt/" target="_blank" rel="noopener" class="google-btn">
+        <svg style="width:22px;height:22px;flex-shrink:0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="#d6249f" stroke-width="2.2"/>
+          <circle cx="12" cy="12" r="4" stroke="#d6249f" stroke-width="2.2"/>
+          <circle cx="17.5" cy="6.5" r="1.2" fill="#d6249f"/>
+        </svg>
+        Instagram
+      </a>
+      <a href="https://www.facebook.com/p/City-Grill-100064752289955/" target="_blank" rel="noopener" class="google-btn">
+        <svg style="width:22px;height:22px;flex-shrink:0" viewBox="0 0 24 24" fill="#1877F2" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+        </svg>
+        Facebook
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────── SPEISEKARTE ─────────────────── -->
+<section id="speisekarte">
+  <p class="section-label">Unser Angebot</p>
+  <h2 class="section-title">Die Speisekarte</h2>
+
+  <div class="menu-grid">
+
+    <!-- DÖNER & FLEISCH IM BROT -->
+    <div class="menu-card reveal">
+      <div class="card-header"><span class="cat-emoji">🌯</span><h3>Döner &amp; Fleischgerichte im Brot</h3></div>
+      <div class="card-body">
+        <div class="menu-item"><span class="item-name">Döner Kebab im Fladenbrot<span class="item-desc">mit Salat und Sauce</span></span><span class="item-price">8,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Döner Kebab Spezial<span class="item-desc">im Fladenbrot mit Salat und Sauce</span></span><span class="item-price">9,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Dürüm Döner Kebab<span class="item-desc">im Teig mit Salat und Sauce</span></span><span class="item-price">9,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Chili-Cheese Döner Kebab</span><span class="item-price">10,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Lahmacun mit Fleisch<span class="item-desc">mit Fleisch, Salat und Sauce</span></span><span class="item-price">9,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Lahmacun<span class="item-desc">mit Salat und Sauce</span></span><span class="item-price">6,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Döner Kebab-Box<span class="item-desc">mit Pommes, Salat und Sauce</span></span><span class="item-price">9,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Döner Kebab-Rollo<span class="item-desc">mit Goudakäse, Pommes, Salat und Sauce</span></span><span class="item-price">12,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Döner Kebab mit Käse</span><span class="item-price">9,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Kinder Döner Kebab</span><span class="item-price">6,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Mega Döner Kebab</span><span class="item-price">12,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Dürüm Falafel</span><span class="item-price">9,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Dürüm mit Käse</span><span class="item-price">10,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Chili-Cheese Dürüm</span><span class="item-price">10,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Weisskäse Beyaz Peynir</span><span class="item-price">1,00 €</span></div>
+      </div>
+    </div>
+
+    <!-- DÖNER TELLER -->
+    <div class="menu-card reveal">
+      <div class="card-header"><span class="cat-emoji">🍽️</span><h3>Döner Kebab Teller</h3></div>
+      <div class="card-body">
+        <div class="menu-item"><span class="item-name">Döner Kebab Teller<span class="item-desc">mit Reis oder Pommes, Salat und Sauce</span></span><span class="item-price">15,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Döner Kebab Teller<span class="item-desc">mit Salat und Sauce</span></span><span class="item-price">14,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Döner Kebab Teller Klein<span class="item-desc">mit Reis oder Pommes, Salat und Sauce</span></span><span class="item-price">13,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Döner Kebab Teller Klein<span class="item-desc">mit Salat und Sauce</span></span><span class="item-price">12,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Iskender Döner Kebab Teller<span class="item-desc">mit Joghurt, Salat und Sauce</span></span><span class="item-price">16,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Döner Kebab Teller-Auflauf</span><span class="item-price">16,50 €</span></div>
+      </div>
+    </div>
+
+    <!-- IMBISS-KLASSIKER -->
+    <div class="menu-card reveal">
+      <div class="card-header"><span class="cat-emoji">🍟</span><h3>Imbiss-Klassiker &amp; Schnitzel</h3></div>
+      <div class="card-body">
+        <div class="menu-item"><span class="item-name">Hähnchenschnitzel</span><span class="item-price">6,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Hähnchenschnitzel<span class="item-desc">mit Salat und Sauce</span></span><span class="item-price">9,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Hähnchenschnitzel<span class="item-desc">mit Pommes oder Reis, Salat und Sauce</span></span><span class="item-price">11,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Chicken Nuggets (6 Stk.)</span><span class="item-price">5,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Chicken Nuggets mit Pommes (6 Stk.)</span><span class="item-price">9,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Linsensuppe (Mercimek Corbasi)</span><span class="item-price">6,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Currywurst</span><span class="item-price">5,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Currywurst mit Pommes</span><span class="item-price">9,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Pommes</span><span class="item-price">4,00 €</span></div>
+      </div>
+    </div>
+
+    <!-- PIZZA -->
+    <div class="menu-card reveal">
+      <div class="card-header"><span class="cat-emoji">🍕</span><h3>Pizza</h3></div>
+      <div class="card-body">
+        <div class="menu-item"><span class="item-name">Pizza Salami<span class="item-desc">mit Rindersalami</span></span><span class="item-price">10,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Pizza Putenschinken<span class="item-desc">mit Tomaten, Zwiebeln, Paprika und Peperoni</span></span><span class="item-price">10,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Pizza Hawaii<span class="item-desc">mit Putenschinken und Ananas</span></span><span class="item-price">11,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Pizza Margherita</span><span class="item-price">8,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Pizza Döner<span class="item-desc">mit Döner, Käse, Paprika und Zwiebeln</span></span><span class="item-price">10,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Pizza Thunfisch<span class="item-desc">mit Thunfisch, Käse und Zwiebeln</span></span><span class="item-price">10,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Pizza Sucuk<span class="item-desc">mit Sucuk, Käse und Peperoni</span></span><span class="item-price">10,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Pizza Funghi<span class="item-desc">mit Champignons</span></span><span class="item-price">10,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Pizza Vegetarisch<span class="item-desc">mit Tomaten, Paprika, Brokkoli und Zwiebeln</span></span><span class="item-price">10,50 €</span></div>
+      </div>
+    </div>
+
+    <!-- PIDE -->
+    <div class="menu-card reveal">
+      <div class="card-header"><span class="cat-emoji">🥖</span><h3>Türkische Pide</h3></div>
+      <div class="card-body">
+        <div class="menu-item"><span class="item-name">Pide mit Hackfleisch</span><span class="item-price">9,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Pide mit Döner</span><span class="item-price">9,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Pide mit Käse</span><span class="item-price">8,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Pide mit Sucuk<span class="item-desc">mit türk. Knoblauchwurst</span></span><span class="item-price">9,00 €</span></div>
+      </div>
+    </div>
+
+    <!-- BURGER -->
+    <div class="menu-card reveal">
+      <div class="card-header"><span class="cat-emoji">🍔</span><h3>Burger</h3></div>
+      <div class="card-body">
+        <div class="menu-item"><span class="item-name">Hamburger<span class="item-desc">100g Rindfleisch</span></span><span class="item-price">6,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Cheeseburger<span class="item-desc">100g Rindfleisch</span></span><span class="item-price">7,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Big Burger<span class="item-desc">100g Rindfleisch x 2</span></span><span class="item-price">11,00 €</span></div>
+      </div>
+    </div>
+
+    <!-- VEGETARISCH -->
+    <div class="menu-card reveal">
+      <div class="card-header"><span class="cat-emoji">🥗</span><h3>Vegetarische Spezialitäten &amp; Falafel</h3></div>
+      <div class="card-body">
+        <div class="menu-item"><span class="item-name">Vegetarisch im Brot</span><span class="item-price">6,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Veg. im Brot mit Käse</span><span class="item-price">7,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Veg. Dürüm</span><span class="item-price">7,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Veg. Dürüm mit Käse</span><span class="item-price">8,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Falafel im Brot</span><span class="item-price">8,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Falafel im Brot mit Käse</span><span class="item-price">9,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Falafel Teller<span class="item-desc">mit Pommes</span></span><span class="item-price">14,00 €</span></div>
+      </div>
+    </div>
+
+    <!-- SALATE -->
+    <div class="menu-card reveal">
+      <div class="card-header"><span class="cat-emoji">🥗</span><h3>Knackige Salate</h3></div>
+      <div class="card-body">
+        <div class="menu-item"><span class="item-name">Gem. Salat<span class="item-desc">mit Tomaten, Gurken, Zwiebeln, Eisbergsalat, Weisskäse, Oliven und Peperoni</span></span><span class="item-price">7,50 €</span></div>
+        <div class="menu-item"><span class="item-name">City Grill Salat<span class="item-desc">mit Döner, Tomaten, Gurken, Zwiebeln, Eisbergsalat, Kraut, Weisskäse, Oliven und Peperoni</span></span><span class="item-price">9,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Krautsalat</span><span class="item-price">5,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Thunfisch Salat<span class="item-desc">mit Thunfisch, Zwiebeln, Eisbergsalat, Krautsalat und Paprika</span></span><span class="item-price">8,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Mozzarella Salat<span class="item-desc">mit Mozzarella, Tomaten und Basilikum</span></span><span class="item-price">7,50 €</span></div>
+      </div>
+    </div>
+
+    <!-- CROQUES -->
+    <div class="menu-card reveal">
+      <div class="card-header"><span class="cat-emoji">🥖</span><h3>Knusprige Croques</h3></div>
+      <div class="card-body">
+        <div class="menu-item"><span class="item-name">Croque Vegetarisch</span><span class="item-price">7,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Croque mit Salami</span><span class="item-price">9,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Croque mit Schinken</span><span class="item-price">9,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Croque mit Pute</span><span class="item-price">9,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Croque mit Thunfisch</span><span class="item-price">9,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Croque Hawaii<span class="item-desc">mit Ananas und Putenschinken</span></span><span class="item-price">10,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Croque mit Döner</span><span class="item-price">9,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Croque mit Sucuk</span><span class="item-price">9,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Croque mit Schinken und Salami</span><span class="item-price">10,00 €</span></div>
+      </div>
+    </div>
+
+    <!-- GRILL -->
+    <div class="menu-card reveal">
+      <div class="card-header"><span class="cat-emoji">🔥</span><h3>Grillspezialitäten</h3></div>
+      <div class="card-body">
+        <div class="menu-item"><span class="item-name">Lammspieß (Kusbasi)</span><span class="item-price">19,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Lammkoteletts</span><span class="item-price">22,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Ganzes Hähnchen</span><span class="item-price">12,50 €</span></div>
+        <div class="menu-item"><span class="item-name">½ Hähnchen</span><span class="item-price">6,40 €</span></div>
+        <div class="menu-item"><span class="item-name">Lammspießpfanne (Sac Kavurma)</span><span class="item-price">19,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Kalbsspieß (Adana)</span><span class="item-price">16,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Beyti-Kebap</span><span class="item-price">18,00 €</span></div>
+        <div class="menu-item"><span class="item-name">City Grill Mix Teller</span><span class="item-price">24,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Gegr. Frikadellen</span><span class="item-price">12,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Hähnchenspieß</span><span class="item-price">16,00 €</span></div>
+        <div class="menu-item"><span class="item-name">½ Hähnchen<span class="item-desc">mit Salat und Pommes</span></span><span class="item-price">12,00 €</span></div>
+      </div>
+    </div>
+
+    <!-- DESSERT -->
+    <div class="menu-card reveal">
+      <div class="card-header"><span class="cat-emoji">🍰</span><h3>Dessert</h3></div>
+      <div class="card-body">
+        <div class="menu-item"><span class="item-name">Baklava (4 Stück)</span><span class="item-price">4,00 €</span></div>
+      </div>
+    </div>
+
+    <!-- SOFTDRINKS -->
+    <div class="menu-card reveal">
+      <div class="card-header"><span class="cat-emoji">🥤</span><h3>Erfrischende Softdrinks</h3></div>
+      <div class="card-body">
+        <div class="menu-item"><span class="item-name">Cola, Fanta, Mezzo Mix<span class="item-desc">Fl. 0,2l / Do. 0,33l</span></span><span class="item-price">2,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Cola, Fanta, Mezzo Mix (1l)</span><span class="item-price">3,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Uludag (1l)</span><span class="item-price">3,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Multi Vitamin, Ice Tea (0,33l)</span><span class="item-price">2,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Durstlöscher</span><span class="item-price">2,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Capri-Sun</span><span class="item-price">1,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Wasser (0,5l)</span><span class="item-price">1,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Ayran (0,25l)</span><span class="item-price">1,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Energy Drink / Red Bull (0,25l)</span><span class="item-price">2,50 €</span></div>
+      </div>
+    </div>
+
+    <!-- HEISSGETRÄNKE -->
+    <div class="menu-card reveal">
+      <div class="card-header"><span class="cat-emoji">☕</span><h3>Heißgetränke</h3></div>
+      <div class="card-body">
+        <div class="menu-item"><span class="item-name">Tee (groß)</span><span class="item-price">1,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Kräutertee (verschiedene Sorten)</span><span class="item-price">1,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Kaffee</span><span class="item-price">2,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Espresso</span><span class="item-price">2,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Cappuccino</span><span class="item-price">3,00 €</span></div>
+        <div class="menu-item"><span class="item-name">Latte Macchiato</span><span class="item-price">3,50 €</span></div>
+        <div class="menu-item"><span class="item-name">Milchkaffee</span><span class="item-price">3,50 €</span></div>
+      </div>
+    </div>
+
+  </div><!-- /menu-grid -->
+</section>
+
+<!-- ─────────────────── FOOTER ─────────────────── -->
+<footer>
+  <div class="social-links">
+    <a href="https://www.instagram.com/city.grill.badbramstedt/" target="_blank" rel="noopener" class="social-btn instagram" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="white" stroke-width="2"/>
+        <circle cx="12" cy="12" r="4" stroke="white" stroke-width="2"/>
+        <circle cx="17.5" cy="6.5" r="1" fill="white"/>
+      </svg>
+    </a>
+    <a href="https://www.facebook.com/p/City-Grill-100064752289955/" target="_blank" rel="noopener" class="social-btn facebook" aria-label="Facebook">
+      <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+      </svg>
+    </a>
+  </div>
+  <p>© 2026 City Grill GbR – Bad Bramstedt</p>
+  <div class="footer-links">
+    <a href="#" onclick="openModal('impressum'); return false;">Impressum</a>
+    <a href="#" onclick="openModal('datenschutz'); return false;">Datenschutzerklärung</a>
+  </div>
+</footer>
+
+<!-- ─────────────────── MODAL: IMPRESSUM ─────────────────── -->
+<div class="modal-overlay" id="impressum" onclick="if(event.target===this) closeModal('impressum')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('impressum')" aria-label="Schließen">✕</button>
+    <h2>Impressum</h2>
+
+    <h3>Angaben gemäß § 5 TMG</h3>
+    <p><strong>City Grill GbR</strong><br>
+    Kirchenbleeck 3<br>
+    24576 Bad Bramstedt</p>
+
+    <h3>Vertreten durch die Gesellschafter</h3>
+    <p>Ömer Gülac, Hasit Gülac</p>
+
+    <h3>Kontakt</h3>
+    <p>Telefon: <a href="tel:041928190610">04192 8190610</a><br>
+    (Erreichbar während der Öffnungszeiten)<br>
+    E-Mail: <a href="mailto:citygrill.24576@gmail.com">citygrill.24576@gmail.com</a></p>
+
+    <h3>Verbraucherstreitbeilegung</h3>
+    <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+  </div>
+</div>
+
+<!-- ─────────────────── MODAL: DATENSCHUTZ ─────────────────── -->
+<div class="modal-overlay" id="datenschutz" onclick="if(event.target===this) closeModal('datenschutz')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('datenschutz')" aria-label="Schließen">✕</button>
+    <h2>Datenschutzerklärung</h2>
+
+    <h3>1. Allgemeine Hinweise</h3>
+    <p>Der Schutz Ihrer persönlichen Daten ist uns ein wichtiges Anliegen. Wir verarbeiten Ihre Daten ausschließlich auf Grundlage der gesetzlichen Vorschriften, insbesondere der Datenschutz-Grundverordnung (DSGVO) sowie des Bundesdatenschutzgesetzes (BDSG).</p>
+
+    <h3>2. Verantwortliche Stelle</h3>
+    <p><strong>City Grill GbR</strong><br>
+    Kirchenbleeck 3, 24576 Bad Bramstedt<br>
+    Inhaber: Ömer Gülac, Hasit Gülac<br>
+    E-Mail: <a href="mailto:citygrill.24576@gmail.com">citygrill.24576@gmail.com</a><br>
+    Telefon: <a href="tel:041928190610">04192 8190610</a></p>
+
+    <h3>3. Datenerfassung beim Websitebesuch</h3>
+    <p>Beim Aufrufen dieser Website werden durch den Webhoster automatisch sogenannte Server-Log-Files erfasst. Dazu gehören technische Informationen wie IP-Adresse, Browsertyp und -version, Betriebssystem sowie Datum und Uhrzeit des Zugriffs. Diese Daten werden ausschließlich zur technisch einwandfreien Darstellung und Sicherheit der Website benötigt und nicht mit anderen Datenquellen zusammengeführt. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse).</p>
+
+    <h3>4. Keine Cookies, kein Tracking</h3>
+    <p>Diese Website verwendet <strong>keine Cookies</strong>, <strong>keine Analyse- oder Tracking-Tools</strong> (z. B. Google Analytics) und <strong>kein Kontaktformular</strong>. Es werden keinerlei Nutzungsprofile erstellt und keine personenbezogenen Daten zu Werbezwecken erhoben oder weitergegeben.</p>
+
+    <h3>5. Google Maps</h3>
+    <p>Diese Website verwendet Google Maps zur Darstellung einer interaktiven Karte. Anbieter ist die Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Beim Laden der Karte wird Ihre IP-Adresse automatisch an Google-Server übertragen, auch ohne aktive Interaktion. Dies kann eine Übertragung in die USA einschließen. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der standortbezogenen Darstellung unseres Restaurants). Weitere Informationen finden Sie in der Datenschutzerklärung von Google: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></p>
+
+    <h3>6. Google Review Link</h3>
+    <p>Auf dieser Website befindet sich ein Link zur Google-Bewertungsseite unseres Unternehmens. Beim Klick auf diesen Link verlassen Sie unsere Website und werden direkt zu einem Dienst der Google Ireland Limited weitergeleitet. Ab diesem Zeitpunkt gilt ausschließlich die Datenschutzerklärung von Google. Die Nutzung erfolgt freiwillig und ausschließlich auf aktive Initiative des Nutzers.</p>
+
+    <h3>7. Social Media (Instagram &amp; Facebook)</h3>
+    <p>Diese Website enthält Verlinkungen zu unseren Profilen auf Instagram (Meta Platforms Ireland Limited) und Facebook (Meta Platforms Ireland Limited). Diese Links sind reine Textverweise bzw. Icon-Links – es werden <strong>keine Social-Media-Plugins</strong> eingebunden, die beim Seitenaufruf automatisch Daten übertragen. Eine Datenübermittlung an Meta findet nur dann statt, wenn Sie aktiv auf einen der Links klicken und die jeweilige Plattform besuchen. Ab diesem Zeitpunkt gilt die Datenschutzerklärung von Meta: <a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener">facebook.com/privacy/policy</a></p>
+
+    <h3>8. Schriftarten</h3>
+    <p>Diese Website verwendet ausschließlich systemseitig verfügbare Schriftarten. Es werden <strong>keine externen Schriftdienste</strong> (z. B. Google Fonts) eingebunden, sodass keine Daten an Drittanbieter übermittelt werden.</p>
+
+    <h3>9. Ihre Rechte als Nutzer</h3>
+    <p>Sie haben jederzeit das Recht auf kostenlose <strong>Auskunft</strong> über Ihre gespeicherten Daten, deren Herkunft und Empfänger sowie den Zweck der Datenverarbeitung. Darüber hinaus haben Sie das Recht auf <strong>Berichtigung</strong>, <strong>Löschung</strong> oder <strong>Einschränkung</strong> der Verarbeitung Ihrer Daten sowie ein <strong>Widerspruchsrecht</strong>. Zur Ausübung Ihrer Rechte wenden Sie sich bitte per E-Mail an: <a href="mailto:citygrill.24576@gmail.com">citygrill.24576@gmail.com</a></p>
+    <p>Außerdem steht Ihnen ein Beschwerderecht bei der zuständigen Datenschutzaufsichtsbehörde zu. In Schleswig-Holstein ist dies das Unabhängige Landeszentrum für Datenschutz (ULD), <a href="https://www.datenschutzzentrum.de" target="_blank" rel="noopener">www.datenschutzzentrum.de</a></p>
+  </div>
+</div>
+
+<!-- ─────────────────── JS: SCROLL REVEAL + MODALS ─────────────────── -->
+<script>
+  /* Scroll Reveal */
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.10 });
+  revealEls.forEach(el => io.observe(el));
+
+  /* Modals */
+  function openModal(id) {
+    const el = document.getElementById(id);
+    el.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.active')
+        .forEach(m => m.classList.remove('active'));
+      document.body.style.overflow = '';
+      closeMenu();
+    }
+  });
+
+  /* Hamburger Menu */
+  function toggleMenu() {
+    const menu     = document.getElementById('mobileMenu');
+    const backdrop = document.getElementById('menuBackdrop');
+    const burger   = document.getElementById('hamburger');
+    const isOpen   = menu.classList.contains('open');
+    if (isOpen) {
+      closeMenu();
+    } else {
+      menu.classList.add('open');
+      backdrop.classList.add('open');
+      burger.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  }
+  function closeMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.getElementById('menuBackdrop').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+</script>
+
+</body>
+</html>
